@@ -20,7 +20,7 @@ server with Ubuntu Server OS.
 
 **Task**
 
-In this assignment I am going to implement a simple Book Register web form using
+In this project I am going to implement a simple Book Register web form using
 MEAN stack.
 
 **Step 1: Install NodeJs**
