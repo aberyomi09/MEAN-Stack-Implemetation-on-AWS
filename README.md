@@ -16,5 +16,5 @@ This framework comes as an alternative to the widely known LAMP stack, which use
 # Step 1: Install NodeJs
 # Step 2: Install MongoDB
 # Step 3: Install Express and set up routes to the server
-# Step 4 – Access the routes with AngularJS
-# Step 5 – Access MEAN Application
+# Step 4: Access the routes with AngularJS
+# Step 5: Access MEAN Application
