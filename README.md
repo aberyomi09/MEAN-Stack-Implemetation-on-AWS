@@ -8,9 +8,13 @@ As it uses a single programming language, JavaScript, in each layer of the stack
 MEAN is an acronym of the following programs:
 
 MongoDB (document database)
+
 Express (back-end application framework)
+
 Angular (front-end application framework)
+
 Node.js (JavaScript runtime environment)
+
 This framework comes as an alternative to the widely known LAMP stack, which uses JS on the client side, but PHP on the server side.
 
 # Step 1: Install NodeJs
