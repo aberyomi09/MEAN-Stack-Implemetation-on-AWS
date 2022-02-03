@@ -1,1 +1,1 @@
-# MEAN-Stack-Implemetation-on-AWS-Ubuntu-Intsnace
+# MEAN-Stack-Implemetation-on-AWS-Ubuntu-Instance
