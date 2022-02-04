@@ -47,6 +47,8 @@ ca-certificates*
 
 *\#sudo apt install -y nodejs*
 
+![Install Node](https://user-images.githubusercontent.com/66855448/152474948-eea3a1d4-8a7a-4360-8132-c541a082a044.PNG)
+
 **Step 2: Install MongoDB**
 
 MongoDB stores data in flexible, JSON-like documents. Fields in a database can
@@ -72,6 +74,8 @@ trusty/mongodb-org/3.4 multiverse" \| sudo tee
 **Verify that the service is up and running**
 
 *\#sudo systemctl status mongodb*
+
+![SYstemctl status MongoDB](https://user-images.githubusercontent.com/66855448/152474983-88522e60-cb6f-4aee-ba4f-e87e0658f2e9.PNG)
 
 **Install npm – Node package manager.**
 
@@ -459,6 +463,8 @@ data-ng-click="del_book(book)"\>\</td\>*
 
 *\#node server.js*
 
+![Node Server](https://user-images.githubusercontent.com/66855448/152475097-7fe23505-0499-441e-ae0c-e7f7c8ef98a7.PNG)
+
 The server is now up and running, we can connect it via port 3300. You can
 launch a separate Putty or SSH console to test what curl command returns
 locally.
@@ -488,3 +494,7 @@ OR
 DNS name.
 
 This is how your Web Book Register Application will look like in browser:
+
+![Final Book register](https://user-images.githubusercontent.com/66855448/152475130-5dd0f283-e37f-4ee7-b34d-02bd2f1273ce.PNG)
+
+Please Note few entries were added (just incase yours comes out as blank)
