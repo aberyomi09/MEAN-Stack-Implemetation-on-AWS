@@ -30,7 +30,7 @@ is used in this tutorial to set up the Express routes and AngularJS controllers.
 
 **Update ubuntu**
 
-'''sudo apt update'''
+```sudo apt update```
 
 **Upgrade ubuntu**
 
