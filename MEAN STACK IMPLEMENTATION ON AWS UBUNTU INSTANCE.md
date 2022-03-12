@@ -30,7 +30,11 @@ is used in this tutorial to set up the Express routes and AngularJS controllers.
 
 **Update ubuntu**
 
+<<<<<<< HEAD
 ```sudo apt update```
+=======
+*\#sudo apt update*
+>>>>>>> parent of cecc9fb... Update MEAN STACK IMPLEMENTATION ON AWS UBUNTU INSTANCE.md
 
 **Upgrade ubuntu**
 
