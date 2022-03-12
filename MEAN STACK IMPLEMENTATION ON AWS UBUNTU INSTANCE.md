@@ -34,18 +34,18 @@ is used in this tutorial to set up the Express routes and AngularJS controllers.
 
 **Upgrade ubuntu**
 
-*\#sudo apt upgrade*
+```sudo apt upgrade```
 
 **Add certificates**
 
-*\#sudo apt -y install curl dirmngr apt-transport-https lsb-release
-ca-certificates*
+```sudo apt -y install curl dirmngr apt-transport-https lsb-release
+ca-certificates```
 
-*\#curl -sL https://deb.nodesource.com/setup_12.x \| sudo -E bash* -
+```curl -sL https://deb.nodesource.com/setup_12.x \| sudo -E bash* -```
 
 **Install NodeJS**
 
-*\#sudo apt install -y nodejs*
+```sudo apt install -y nodejs```
 
 ![Install Node](https://user-images.githubusercontent.com/66855448/152474948-eea3a1d4-8a7a-4360-8132-c541a082a044.PNG)
 
@@ -56,52 +56,52 @@ vary from document to document and data structure can be changed over time. For
 our example application, we are adding book records to MongoDB that contain book
 name, isbn number, author, and number of pages.
 
-*\#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv
-0C49F3730359A14518585931BC711F9BA15703C6*
+```sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv
+0C49F3730359A14518585931BC711F9BA15703C6```
 
-*\#echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu
+```echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu
 trusty/mongodb-org/3.4 multiverse" \| sudo tee
-/etc/apt/sources.list.d/mongodb-org-3.4.list*
+/etc/apt/sources.list.d/mongodb-org-3.4.list```
 
 **Install MongoDB**
 
-*\#sudo apt install -y mongodb*
+```sudo apt install -y mongodb```
 
 **Start The server**
 
-*\#sudo service mongodb start*
+```sudo service mongodb start```
 
 **Verify that the service is up and running**
 
-*\#sudo systemctl status mongodb*
+```sudo systemctl status mongodb```
 
 ![SYstemctl status MongoDB](https://user-images.githubusercontent.com/66855448/152474983-88522e60-cb6f-4aee-ba4f-e87e0658f2e9.PNG)
 
 **Install npm – Node package manager.**
 
-*\#sudo apt install -y npm*
+```sudo apt install -y npm```
 
 **Install body-parser package**
 
 We need ‘body-parser’ package to help us process JSON files passed in requests
 to the server.
 
-*\#sudo npm install body-parser*
+```sudo npm install body-parser```
 
 **Create a folder named ‘Books’**
 
-*\#mkdir Books && cd Books*
+```mkdir Books && cd Books```
 
 **In the Books directory, Initialize npm project**
 
-*\#npm init*
+```npm init```
 
 **Add a file to it named server.js**
 
-*\#vim server.js*
+```vim server.js```
 
 **Copy and paste the web server code below into the server.js file.**
-
+```
 *var express = require('express');*
 
 *var bodyParser = require('body-parser');*
@@ -120,7 +120,7 @@ to the server.
 
 *console.log('Server up: http://localhost:' + app.get('port'));*
 
-*});*
+*});*```
 
 **INSTALL EXPRESS AND SET UP ROUTES TO THE SERVER**
 
@@ -134,18 +134,18 @@ I also will use Mongoose package which provides a straight-forward, schema-based
 solution to model your application data. I will use Mongoose to establish a
 schema for the database to store data of our book register.
 
-*\#sudo npm install express mongoose*
+```sudo npm install express mongoose```
 
 **In ‘Books’ folder, create a folder named apps**
 
-*\#mkdir apps && cd apps*
+```mkdir apps && cd apps```
 
 **Create a file named routes.js**
 
-*\#vim routes.js*
+```vim routes.js```
 
 **Copy and paste the code below into routes.js**
-
+```
 *var Book = require('./models/book');*
 
 *module.exports = function(app) {*
@@ -218,18 +218,18 @@ schema for the database to store data of our book register.
 
 *});*
 
-*};*
+*};*```
 
 **In the ‘apps’ folder, create a folder named models**
 
-\#mkdir models && cd models
+```mkdir models && cd models```
 
 **Create a file named book.js**
 
-*\#vim book.js*
+```vim book.js```
 
 **Copy and paste the code below into ‘book.js’**
-
+```
 *var mongoose = require('mongoose');*
 
 *var dbHost = 'mongodb://localhost:27017/test';*
@@ -255,6 +255,7 @@ schema for the database to store data of our book register.
 *var Book = mongoose.model('Book', bookSchema);*
 
 *module.exports = mongoose.model('Book', bookSchema);*
+```
 
 **Step 4 – Access the routes with AngularJS**
 
@@ -264,19 +265,19 @@ Express and perform actions on our book register.
 
 **Change the directory back to ‘Books’**
 
-*\#cd ../..*
+```cd ../..```
 
 **Create a folder named public**
 
-*\#mkdir public && cd public*
+```mkdir public && cd public```
 
 **Add a file named script.js**
 
-*\#Vim script.js*
+```vim script.js```
 
 **Copy and paste the Code below (controller configuration defined) into the
 script.js file.**
-
+```
 *var app = angular.module('myApp', []);*
 
 *app.controller('myCtrl', function(\$scope, \$http) {*
@@ -350,13 +351,14 @@ script.js file.**
 *};*
 
 *});*
+```
 
 **In public folder, create a file named index.html;**
 
-*\#Vim index.html*
+```vim index.html```
 
 **Copy and paste the code below into index.html file.**
-
+```
 *\<!doctype html\>*
 
 *\<html ng-app="myApp" ng-controller="myCtrl"\>*
@@ -454,14 +456,15 @@ data-ng-click="del_book(book)"\>\</td\>*
 *\</body\>*
 
 *\</html\>*
+```
 
 **Change the directory back up to Books**
 
-*\#cd ..*
+```cd ..```
 
 **Start the server by running this command:**
 
-*\#node server.js*
+```node server.js``
 
 ![Node Server](https://user-images.githubusercontent.com/66855448/152475097-7fe23505-0499-441e-ae0c-e7f7c8ef98a7.PNG)
 
@@ -469,7 +472,7 @@ The server is now up and running, we can connect it via port 3300. You can
 launch a separate Putty or SSH console to test what curl command returns
 locally.
 
-*\#curl -s* [*http://localhost:3300*](http://localhost:3300)
+```curl -s* [*http://localhost:3300*](http://localhost:3300)```
 
 It should return an HTML page, it is hardly readable in the CLI, but we can also
 try and access it from the Internet.
@@ -485,12 +488,12 @@ Quick reminder how to get your server’s Public IP and public DNS name:
 
 You can find it in your AWS web console in EC2 details
 
-Run *\#curl -s http://169.254.169.254/latest/meta-data/public-ipv4* for Public
+Run ```curl -s http://169.254.169.254/latest/meta-data/public-ipv4``` for Public
 IP address
 
 OR
 
-*\#curl -s http://169.254.169.254/latest/meta-data/public-hostname* for Public
+```curl -s http://169.254.169.254/latest/meta-data/public-hostname``` for Public
 DNS name.
 
 This is how your Web Book Register Application will look like in browser:
