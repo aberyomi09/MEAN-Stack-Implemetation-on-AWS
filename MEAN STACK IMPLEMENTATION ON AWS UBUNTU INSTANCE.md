@@ -1,503 +1,469 @@
-**MEAN STACK IMPLEMENTATION ON AWS UBUNTU INSTANCE**
+MEAN STACK IMPLEMENTATION ON AWS UBUNTU INSTANCE
 
-**MEAN Stack is a combination of following components:**
+MEAN Stack is a combination of following components:
 
-1.  MongoDB (Document database) – Stores and allows to retrieve data.
+MongoDB (Document database) – Stores and allows to retrieve data.
 
-2.  Express (Back-end application framework) – Makes requests to Database for
-    Reads and Writes.
+Express (Back-end application framework) – Makes requests to Database for Reads and Writes.
 
-3.  Angular (Front-end application framework) – Handles Client and Server
-    Requests
+Angular (Front-end application framework) – Handles Client and Server Requests
 
-4.  Node.js (JavaScript runtime environment) – Accepts requests and displays
-    results to end user
+Node.js (JavaScript runtime environment) – Accepts requests and displays results to end user
 
-**Preparing prerequisites**
+Preparing prerequisites
 
-In order to complete this project I will be using an AWS account and a virtual
-server with Ubuntu Server OS.
+In order to complete this project I will be using an AWS account and a virtual server with Ubuntu Server OS.
 
-**Task**
+Task
 
-In this project I am going to implement a simple Book Register web form using
-MEAN stack.
+In this project I am going to implement a simple Book Register web form using MEAN stack.
 
-**Step 1: Install NodeJs**
+Step 1: Install NodeJs
 
-Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js
-is used in this tutorial to set up the Express routes and AngularJS controllers.
+Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js is used in this tutorial to set up the Express routes and AngularJS controllers.
 
-**Update ubuntu**
+Update ubuntu
 
-```sudo apt update```
+#sudo apt update
 
-**Upgrade ubuntu**
+Upgrade ubuntu
 
-```sudo apt upgrade```
+#sudo apt upgrade
 
-**Add certificates**
+Add certificates
 
-```sudo apt -y install curl dirmngr apt-transport-https lsb-release
-ca-certificates```
+#sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
 
-```curl -sL https://deb.nodesource.com/setup_12.x \| sudo -E bash* -```
+#curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 
-**Install NodeJS**
+Install NodeJS
 
-```sudo apt install -y nodejs```
+#sudo apt install -y nodejs
 
-![Install Node](https://user-images.githubusercontent.com/66855448/152474948-eea3a1d4-8a7a-4360-8132-c541a082a044.PNG)
+Install Node
 
-**Step 2: Install MongoDB**
+Step 2: Install MongoDB
 
-MongoDB stores data in flexible, JSON-like documents. Fields in a database can
-vary from document to document and data structure can be changed over time. For
-our example application, we are adding book records to MongoDB that contain book
-name, isbn number, author, and number of pages.
+MongoDB stores data in flexible, JSON-like documents. Fields in a database can vary from document to document and data structure can be changed over time. For our example application, we are adding book records to MongoDB that contain book name, isbn number, author, and number of pages.
 
-```sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv
-0C49F3730359A14518585931BC711F9BA15703C6```
+#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 
-```echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu
-trusty/mongodb-org/3.4 multiverse" \| sudo tee
-/etc/apt/sources.list.d/mongodb-org-3.4.list```
+#echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 
-**Install MongoDB**
+Install MongoDB
 
-```sudo apt install -y mongodb```
+#sudo apt install -y mongodb
 
-**Start The server**
+Start The server
 
-```sudo service mongodb start```
+#sudo service mongodb start
 
-**Verify that the service is up and running**
+Verify that the service is up and running
 
-```sudo systemctl status mongodb```
+#sudo systemctl status mongodb
 
-![SYstemctl status MongoDB](https://user-images.githubusercontent.com/66855448/152474983-88522e60-cb6f-4aee-ba4f-e87e0658f2e9.PNG)
+SYstemctl status MongoDB
 
-**Install npm – Node package manager.**
+Install npm – Node package manager.
 
-```sudo apt install -y npm```
+#sudo apt install -y npm
 
-**Install body-parser package**
+Install body-parser package
 
-We need ‘body-parser’ package to help us process JSON files passed in requests
-to the server.
+We need ‘body-parser’ package to help us process JSON files passed in requests to the server.
 
-```sudo npm install body-parser```
+#sudo npm install body-parser
 
-**Create a folder named ‘Books’**
+Create a folder named ‘Books’
 
-```mkdir Books && cd Books```
+#mkdir Books && cd Books
 
-**In the Books directory, Initialize npm project**
+In the Books directory, Initialize npm project
 
-```npm init```
+#npm init
 
-**Add a file to it named server.js**
+Add a file to it named server.js
 
-```vim server.js```
+#vim server.js
 
-**Copy and paste the web server code below into the server.js file.**
-```
-*var express = require('express');*
+Copy and paste the web server code below into the server.js file.
 
-*var bodyParser = require('body-parser');*
+var express = require('express');
 
-*var app = express();*
+var bodyParser = require('body-parser');
 
-*app.use(express.static(__dirname + '/public'));*
+var app = express();
 
-*app.use(bodyParser.json());*
+app.use(express.static(__dirname + '/public'));
 
-*require('./apps/routes')(app);*
+app.use(bodyParser.json());
 
-*app.set('port', 3300);*
+require('./apps/routes')(app);
 
-*app.listen(app.get('port'), function() {*
+app.set('port', 3300);
 
-*console.log('Server up: http://localhost:' + app.get('port'));*
+app.listen(app.get('port'), function() {
 
-*});*```
+console.log('Server up: http://localhost:' + app.get('port'));
 
-**INSTALL EXPRESS AND SET UP ROUTES TO THE SERVER**
+});
 
-**Step 3: Install Express and set up routes to the server**
+INSTALL EXPRESS AND SET UP ROUTES TO THE SERVER
 
-Express is a minimal and flexible Node.js web application framework that
-provides features for web and mobile applications. I will use Express to pass
-book information to and from our MongoDB database.
+Step 3: Install Express and set up routes to the server
 
-I also will use Mongoose package which provides a straight-forward, schema-based
-solution to model your application data. I will use Mongoose to establish a
-schema for the database to store data of our book register.
+Express is a minimal and flexible Node.js web application framework that provides features for web and mobile applications. I will use Express to pass book information to and from our MongoDB database.
 
-```sudo npm install express mongoose```
+I also will use Mongoose package which provides a straight-forward, schema-based solution to model your application data. I will use Mongoose to establish a schema for the database to store data of our book register.
 
-**In ‘Books’ folder, create a folder named apps**
+#sudo npm install express mongoose
 
-```mkdir apps && cd apps```
+In ‘Books’ folder, create a folder named apps
 
-**Create a file named routes.js**
+#mkdir apps && cd apps
 
-```vim routes.js```
+Create a file named routes.js
 
-**Copy and paste the code below into routes.js**
-```
-*var Book = require('./models/book');*
+#vim routes.js
 
-*module.exports = function(app) {*
+Copy and paste the code below into routes.js
 
-*app.get('/book', function(req, res) {*
+var Book = require('./models/book');
 
-*Book.find({}, function(err, result) {*
+module.exports = function(app) {
 
-*if ( err ) throw err;*
+app.get('/book', function(req, res) {
 
-*res.json(result);*
+Book.find({}, function(err, result) {
 
-*});*
+if ( err ) throw err;
 
-*});*
+res.json(result);
 
-*app.post('/book', function(req, res) {*
+});
 
-*var book = new Book( {*
+});
 
-*name:req.body.name,*
+app.post('/book', function(req, res) {
 
-*isbn:req.body.isbn,*
+var book = new Book( {
 
-*author:req.body.author,*
+name:req.body.name,
 
-*pages:req.body.pages*
+isbn:req.body.isbn,
 
-*});*
+author:req.body.author,
 
-*book.save(function(err, result) {*
+pages:req.body.pages
 
-*if ( err ) throw err;*
+});
 
-*res.json( {*
+book.save(function(err, result) {
 
-*message:"Successfully added book",*
+if ( err ) throw err;
 
-*book:result*
+res.json( {
 
-*});*
+message:"Successfully added book",
 
-*});*
+book:result
 
-*});*
+});
 
-*app.delete("/book/:isbn", function(req, res) {*
+});
 
-*Book.findOneAndRemove(req.query, function(err, result) {*
+});
 
-*if ( err ) throw err;*
+app.delete("/book/:isbn", function(req, res) {
 
-*res.json( {*
+Book.findOneAndRemove(req.query, function(err, result) {
 
-*message: "Successfully deleted the book",*
+if ( err ) throw err;
 
-*book: result*
+res.json( {
 
-*});*
+message: "Successfully deleted the book",
 
-*});*
+book: result
 
-*});*
+});
 
-*var path = require('path');*
+});
 
-*app.get('\*', function(req, res) {*
+});
 
-*res.sendfile(path.join(__dirname + '/public', 'index.html'));*
+var path = require('path');
 
-*});*
+app.get('*', function(req, res) {
 
-*};*```
+res.sendfile(path.join(__dirname + '/public', 'index.html'));
 
-**In the ‘apps’ folder, create a folder named models**
+});
 
-```mkdir models && cd models```
+};
 
-**Create a file named book.js**
+In the ‘apps’ folder, create a folder named models
 
-```vim book.js```
+#mkdir models && cd models
 
-**Copy and paste the code below into ‘book.js’**
-```
-*var mongoose = require('mongoose');*
+Create a file named book.js
 
-*var dbHost = 'mongodb://localhost:27017/test';*
+#vim book.js
 
-*mongoose.connect(dbHost);*
+Copy and paste the code below into ‘book.js’
 
-*mongoose.connection;*
+var mongoose = require('mongoose');
 
-*mongoose.set('debug', true);*
+var dbHost = 'mongodb://localhost:27017/test';
 
-*var bookSchema = mongoose.Schema( {*
+mongoose.connect(dbHost);
 
-*name: String,*
+mongoose.connection;
 
-*isbn: {type: String, index: true},*
+mongoose.set('debug', true);
 
-*author: String,*
+var bookSchema = mongoose.Schema( {
 
-*pages: Number*
+name: String,
 
-*});*
+isbn: {type: String, index: true},
 
-*var Book = mongoose.model('Book', bookSchema);*
+author: String,
 
-*module.exports = mongoose.model('Book', bookSchema);*
-```
+pages: Number
 
-**Step 4 – Access the routes with AngularJS**
+});
 
-AngularJS provides a web framework for creating dynamic views in your web
-applications. In this tutorial, we use AngularJS to connect our web page with
-Express and perform actions on our book register.
+var Book = mongoose.model('Book', bookSchema);
 
-**Change the directory back to ‘Books’**
+module.exports = mongoose.model('Book', bookSchema);
 
-```cd ../..```
+Step 4 – Access the routes with AngularJS
 
-**Create a folder named public**
+AngularJS provides a web framework for creating dynamic views in your web applications. In this tutorial, we use AngularJS to connect our web page with Express and perform actions on our book register.
 
-```mkdir public && cd public```
+Change the directory back to ‘Books’
 
-**Add a file named script.js**
+#cd ../..
 
-```vim script.js```
+Create a folder named public
 
-**Copy and paste the Code below (controller configuration defined) into the
-script.js file.**
-```
-*var app = angular.module('myApp', []);*
+#mkdir public && cd public
 
-*app.controller('myCtrl', function(\$scope, \$http) {*
+Add a file named script.js
 
-*\$http( {*
+#Vim script.js
 
-*method: 'GET',*
+Copy and paste the Code below (controller configuration defined) into the script.js file.
 
-*url: '/book'*
+var app = angular.module('myApp', []);
 
-*}).then(function successCallback(response) {*
+app.controller('myCtrl', function($scope, $http) {
 
-*\$scope.books = response.data;*
+$http( {
 
-*}, function errorCallback(response) {*
+method: 'GET',
 
-*console.log('Error: ' + response);*
+url: '/book'
 
-*});*
+}).then(function successCallback(response) {
 
-*\$scope.del_book = function(book) {*
+$scope.books = response.data;
 
-*\$http( {*
+}, function errorCallback(response) {
 
-*method: 'DELETE',*
+console.log('Error: ' + response);
 
-*url: '/book/:isbn',*
+});
 
-*params: {'isbn': book.isbn}*
+$scope.del_book = function(book) {
 
-*}).then(function successCallback(response) {*
+$http( {
 
-*console.log(response);*
+method: 'DELETE',
 
-*}, function errorCallback(response) {*
+url: '/book/:isbn',
 
-*console.log('Error: ' + response);*
+params: {'isbn': book.isbn}
 
-*});*
+}).then(function successCallback(response) {
 
-*};*
+console.log(response);
 
-*\$scope.add_book = function() {*
+}, function errorCallback(response) {
 
-*var body = '{ "name": "' + \$scope.Name +*
+console.log('Error: ' + response);
 
-*'", "isbn": "' + \$scope.Isbn +*
+});
 
-*'", "author": "' + \$scope.Author +*
+};
 
-*'", "pages": "' + \$scope.Pages + '" }';*
+$scope.add_book = function() {
 
-*\$http({*
+var body = '{ "name": "' + $scope.Name +
 
-*method: 'POST',*
+'", "isbn": "' + $scope.Isbn +
 
-*url: '/book',*
+'", "author": "' + $scope.Author +
 
-*data: body*
+'", "pages": "' + $scope.Pages + '" }';
 
-*}).then(function successCallback(response) {*
+$http({
 
-*console.log(response);*
+method: 'POST',
 
-*}, function errorCallback(response) {*
+url: '/book',
 
-*console.log('Error: ' + response);*
+data: body
 
-*});*
+}).then(function successCallback(response) {
 
-*};*
+console.log(response);
 
-*});*
-```
+}, function errorCallback(response) {
 
-**In public folder, create a file named index.html;**
+console.log('Error: ' + response);
 
-```vim index.html```
+});
 
-**Copy and paste the code below into index.html file.**
-```
-*\<!doctype html\>*
+};
 
-*\<html ng-app="myApp" ng-controller="myCtrl"\>*
+});
 
-*\<head\>*
+In public folder, create a file named index.html;
 
-*\<script
-src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"\>\</script\>*
+#Vim index.html
 
-*\<script src="script.js"\>\</script\>*
+Copy and paste the code below into index.html file.
 
-*\</head\>*
+<!doctype html>
 
-*\<body\>*
+<html ng-app="myApp" ng-controller="myCtrl">
 
-*\<div\>*
+<head>
 
-*\<table\>*
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"\>\</script>
 
-*\<tr\>*
+<script src="script.js"></script>
 
-*\<td\>Name:\</td\>*
+</head>
 
-*\<td\>\<input type="text" ng-model="Name"\>\</td\>*
+<body>
 
-*\</tr\>*
+<div>
 
-*\<tr\>*
+<table>
 
-*\<td\>Isbn:\</td\>*
+<tr>
 
-*\<td\>\<input type="text" ng-model="Isbn"\>\</td\>*
+<td>Name:</td>
 
-*\</tr\>*
+<td><input type="text" ng-model="Name"></td>
 
-*\<tr\>*
+</tr>
 
-*\<td\>Author:\</td\>*
+<tr>
 
-*\<td\>\<input type="text" ng-model="Author"\>\</td\>*
+<td>Isbn:</td>
 
-*\</tr\>*
+<td><input type="text" ng-model="Isbn"></td>
 
-*\<tr\>*
+</tr>
 
-*\<td\>Pages:\</td\>*
+<tr>
 
-*\<td\>\<input type="number" ng-model="Pages"\>\</td\>*
+<td>Author:</td>
 
-*\</tr\>*
+<td><input type="text" ng-model="Author"></td>
 
-*\</table\>*
+</tr>
 
-*\<button ng-click="add_book()"\>Add\</button\>*
+<tr>
 
-*\</div\>*
+<td>Pages:</td>
 
-*\<hr\>*
+<td><input type="number" ng-model="Pages"></td>
 
-*\<div\>*
+</tr>
 
-*\<table\>*
+</table>
 
-*\<tr\>*
+<button ng-click="add_book()">Add</button>
 
-*\<th\>Name\</th\>*
+</div>
 
-*\<th\>Isbn\</th\>*
+<hr>
 
-*\<th\>Author\</th\>*
+<div>
 
-*\<th\>Pages\</th\>*
+<table>
 
-*\</tr\>*
+<tr>
 
-*\<tr ng-repeat="book in books"\>*
+<th>Name</th>
 
-*\<td\>{{book.name}}\</td\>*
+<th>Isbn</th>
 
-*\<td\>{{book.isbn}}\</td\>*
+<th>Author</th>
 
-*\<td\>{{book.author}}\</td\>*
+<th>Pages</th>
 
-*\<td\>{{book.pages}}\</td\>*
+</tr>
 
-*\<td\>\<input type="button" value="Delete"
-data-ng-click="del_book(book)"\>\</td\>*
+<tr ng-repeat="book in books">
 
-*\</tr\>*
+<td>{{book.name}}</td>
 
-*\</table\>*
+<td>{{book.isbn}}</td>
 
-*\</div\>*
+<td>{{book.author}}</td>
 
-*\</body\>*
+<td>{{book.pages}}</td>
 
-*\</html\>*
-```
+<td><input type="button" value="Delete" data-ng-click="del_book(book)"></td>
 
-**Change the directory back up to Books**
+</tr>
 
-```cd ..```
+</table>
 
-**Start the server by running this command:**
+</div>
 
-```node server.js``
+</body>
 
-![Node Server](https://user-images.githubusercontent.com/66855448/152475097-7fe23505-0499-441e-ae0c-e7f7c8ef98a7.PNG)
+</html>
 
-The server is now up and running, we can connect it via port 3300. You can
-launch a separate Putty or SSH console to test what curl command returns
-locally.
+Change the directory back up to Books
 
-```curl -s* [*http://localhost:3300*](http://localhost:3300)```
+#cd ..
 
-It should return an HTML page, it is hardly readable in the CLI, but we can also
-try and access it from the Internet.
+Start the server by running this command:
 
-For this – you need to open TCP port 3300 in your AWS Web Console for your EC2
-Instance by allowing traffic using the security group feature on AWS instance.
-Alternatively *\#firewall-cmd* can be used on vmware or baremetal servers.
+#node server.js
 
-Now we can access our Book Register web application from the Internet with a
-browser using Public IP address or Public DNS name.
+Node Server
+
+The server is now up and running, we can connect it via port 3300. You can launch a separate Putty or SSH console to test what curl command returns locally.
+
+#curl -s http://localhost:3300
+
+It should return an HTML page, it is hardly readable in the CLI, but we can also try and access it from the Internet.
+
+For this – you need to open TCP port 3300 in your AWS Web Console for your EC2 Instance by allowing traffic using the security group feature on AWS instance. Alternatively #firewall-cmd can be used on vmware or baremetal servers.
+
+Now we can access our Book Register web application from the Internet with a browser using Public IP address or Public DNS name.
 
 Quick reminder how to get your server’s Public IP and public DNS name:
 
 You can find it in your AWS web console in EC2 details
 
-Run ```curl -s http://169.254.169.254/latest/meta-data/public-ipv4``` for Public
-IP address
+Run #curl -s http://169.254.169.254/latest/meta-data/public-ipv4 for Public IP address
 
 OR
 
-```curl -s http://169.254.169.254/latest/meta-data/public-hostname``` for Public
-DNS name.
+#curl -s http://169.254.169.254/latest/meta-data/public-hostname for Public DNS name.
 
 This is how your Web Book Register Application will look like in browser:
 
-![Final Book register](https://user-images.githubusercontent.com/66855448/152475130-5dd0f283-e37f-4ee7-b34d-02bd2f1273ce.PNG)
+Final Book register
 
 Please Note few entries were added (just incase yours comes out as blank)😀
