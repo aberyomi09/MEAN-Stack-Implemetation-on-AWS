@@ -504,4 +504,4 @@ This is how your Web Book Register Application will look like in browser:
 
 ![Final Book register](https://user-images.githubusercontent.com/66855448/152475130-5dd0f283-e37f-4ee7-b34d-02bd2f1273ce.PNG)
 
-Please Note few entries were added (just incase yours comes out as blank)😀
+Please Note few entries were added (just incase yours comes out as blank)
